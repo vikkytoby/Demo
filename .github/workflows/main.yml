@@ -1,0 +1,25 @@
+name: deploy_s3
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 
+
+defaults:
+  run:
+    working-directory: 
+
+jobs:
+  build:
+    runs-on: ubundu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: shinyinc/action-aws-cli@v1.2
+      - run: aws s3 sync . s3://${{ secrest.AWS_S3_BUCKET_NAME }}/
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrest.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_KEY_ID: ${{ secrest.AWS_SECRET_KEY_ID }}
+          AWS_DEFAULT_REGION: "eu-north-1"
